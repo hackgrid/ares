@@ -377,7 +377,24 @@ auto Presentation::loadEmulators() -> void {
     }
   }
   loadMenu.append(MenuSeparator());
+  
+  { MenuItem loadFastAction{&loadMenu};
+    loadFastAction.setText("Load fast" ELLIPSIS).setIcon(Icon::Emblem::Folder).onActivate([&] {  
+      string location;
+      BrowserDialog dialog;
+      dialog.setTitle({"Load Game"});
+      dialog.setPath(Path::desktop());
+      dialog.setAlignment(presentation);
+      dialog.setFilters({"All|*"});
 
+      if(auto location = program.openFile(dialog)) {
+        if(auto emulator = program.identify(location))
+          program.load(emulator, location);
+      }
+    });  
+  }
+  loadMenu.append(MenuSeparator());  
+  
   //build emulator load list
   u32 enabled = 0;
   for(auto& emulator : emulators) {
