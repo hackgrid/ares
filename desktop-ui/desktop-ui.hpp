@@ -25,5 +25,3 @@ namespace ruby {
 #include "presentation/presentation.hpp"
 #include "settings/settings.hpp"
 #include "tools/tools.hpp"
-
-auto locate(const string& name) -> string;

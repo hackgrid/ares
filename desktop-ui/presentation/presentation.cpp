@@ -559,7 +559,7 @@ auto Presentation::loadShaders() -> void {
   });
   shaders.append(blur);
 
-  auto location = locate("Shaders/");
+  auto location = mia::locate("Shaders/");
 
   if(ruby::video.driver() == "OpenGL 3.2") {
     for(auto shader : directory::folders(location, "*.shader")) {

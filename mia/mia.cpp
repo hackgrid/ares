@@ -15,10 +15,10 @@ auto locate(const string& name) -> string {
   if(inode::exists(location)) return location;
 
   // On macOS, also check the AppBundle Resource path
-#if defined(PLATFORM_MACOS)
-  location = {Path::program(), "../Resources/", name};
-  if(inode::exists(location)) return location;
-#endif
+  #if defined(PLATFORM_MACOS)
+    location = {Path::program(), "../Resources/", name};
+    if(inode::exists(location)) return location;
+  #endif
 
   // Check the userData directory, this is the default
   // on non-windows platforms for any resouces that did not
@@ -29,19 +29,19 @@ auto locate(const string& name) -> string {
   if(inode::exists(location)) return location;
 
   // On non-windows platforms, this time check the shared
-  // data directory, on Windows, default to program dir
+  // data directory, on Windows, default to program dir,
   // this ensures Portable mode is the default on Windows platforms.
-#if !defined(PLATFORM_WINDOWS)
-  string shared_location = {Path::sharedData(), "ares/", name};
-  if(inode::exists(shared_location)) return shared_location;
+  #if !defined(PLATFORM_WINDOWS)
+    string shared_location = {Path::sharedData(), "ares/", name};
+    if(inode::exists(shared_location)) return shared_location;
 
-  // On non-windows platforms, after exhausting other options,
-  // default to userData
-  directory::create({Path::userData(), "ares/"});
-  return {Path::userData(), "ares/", name};
-#else
-  return {Path::program(), name};
-#endif
+    // On non-windows platforms, after exhausting other options,
+    // default to userData.
+    directory::create({Path::userData(), "ares/"});
+    return {Path::userData(), "ares/", name};
+  #else 
+    return {Path::program(), name};
+  #endif
 }
 
 auto operator+=(string& lhs, const string& rhs) -> string& {

@@ -143,7 +143,7 @@ auto PathSettings::refresh() -> void {
   if(settings.paths.firmware) {
     firmwarePath.setText(pathname(settings.paths.firmware)).setForegroundColor();
   } else {
-    firmwarePath.setText(pathname(locate("Firmware/"))).setForegroundColor(SystemColor::PlaceholderText);
+    firmwarePath.setText(pathname(mia::locate("Firmware/"))).setForegroundColor(SystemColor::PlaceholderText);
   }
 
   if(settings.paths.saves) {

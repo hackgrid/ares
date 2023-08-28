@@ -27,9 +27,12 @@ namespace mia {
 
   extern function<string ()> homeLocation;
   extern function<string ()> saveLocation;
+  auto locate(const string& name) -> string;
   auto setHomeLocation(function<string ()>) -> void;
   auto setSaveLocation(function<string ()>) -> void;
   auto construct() -> void;
   auto identify(const string& filename) -> string;
   auto import(shared_pointer<Pak>, const string& filename) -> bool;
 }
+
+

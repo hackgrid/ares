@@ -24,14 +24,14 @@ PathSettings& pathSettings = settingsWindow.pathSettings;
 DriverSettings& driverSettings = settingsWindow.driverSettings;
 
 auto Settings::load() -> void {
-  Markup::Node::operator=(BML::unserialize(string::read(locate("settings.bml")), " "));
+  Markup::Node::operator=(BML::unserialize(string::read(mia::locate("settings.bml")), " "));
   process(true);
   save();
 }
 
 auto Settings::save() -> void {
   process(false);
-  file::write(locate("settings.bml"), BML::serialize(*this, " "));
+  file::write(mia::locate("settings.bml"), BML::serialize(*this, " "));
 }
 
 auto Settings::process(bool load) -> void {
